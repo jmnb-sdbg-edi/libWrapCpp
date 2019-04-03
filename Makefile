@@ -3,8 +3,16 @@ LDFLAGS=-g
 
 all: libWrapCpp.so
 
-libWrapperCpp.so: Call_proxy.o Wrap.o
-	g++ -g -shared -o $@ $<
+testLib: main.o libWrapCpp.so
+	g++ $(LDFLAGS) -L. -lWrapCpp $< -o $@
+
+main.o: test/main.cpp
+	g++ $(CPPFLAGS) -o $@ -c $^
+
+test/test.cpp:
+
+libWrapCpp.so: Call_proxy.o Wrap.o
+	g++ $(LDFLAGS) -shared -o $@ $<
 
 Call_proxy.o: src/Call_proxy.cpp
 	g++ $(CPPFLAGS) -o $@ -c $^
@@ -20,4 +28,5 @@ include/Call_proxy.h: include/Pref.h include/Suf.h
 
 clean: 
 	rm -rf *.o
+	rm -rf testLib
 
