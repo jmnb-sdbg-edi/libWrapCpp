@@ -11,10 +11,13 @@ main.o: test/main.cpp
 
 test/test.cpp:
 
-libWrapCpp.so: Call_proxy.o Wrap.o
+libWrapCpp.so: Call_proxy.o Wrap.o Callback.o
 	g++ $(LDFLAGS) -shared -o $@ $<
 
 Call_proxy.o: src/Call_proxy.cpp
+	g++ $(CPPFLAGS) -o $@ -c $^
+
+Callback.o: src/Callback.cpp
 	g++ $(CPPFLAGS) -o $@ -c $^
 
 Wrap.o: src/Wrap.cpp
@@ -23,6 +26,8 @@ Wrap.o: src/Wrap.cpp
 src/Wrap.cpp: include/Wrap.h include/Call_proxy.h
 
 src/Call_proxy.cpp: include/Call_proxy.h
+
+src/Callback.cpp: include/Callback.h
 
 include/Call_proxy.h: include/Pref.h include/Suf.h
 
