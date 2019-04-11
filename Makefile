@@ -1,18 +1,18 @@
-CPPFLAGS=--std=c++98 -g -Wall -pedantic -Iinclude/
-LDFLAGS=-g 
+CPPFLAGS=--std=c++98 -g -Wall -pedantic -fPIC -Iinclude/
+LDFLAGS=-g -fPIC
 
 all: libWrapCpp.so
 
 testLib: main.o libWrapCpp.so
-	g++ $(LDFLAGS) -L. -lWrapCpp $< -o $@
+	g++ $(LDFLAGS) $< -L. -lWrapCpp -o $@
 
 main.o: test/main.cpp
 	g++ $(CPPFLAGS) -o $@ -c $^
 
-test/test.cpp:
+test/main.cpp:
 
 libWrapCpp.so: Call_proxy.o Wrap.o Callback.o
-	g++ $(LDFLAGS) -shared -o $@ $<
+	g++ $(LDFLAGS) -shared -o $@ $^
 
 Call_proxy.o: src/Call_proxy.cpp
 	g++ $(CPPFLAGS) -o $@ -c $^
