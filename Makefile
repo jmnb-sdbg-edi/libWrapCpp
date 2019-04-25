@@ -4,12 +4,12 @@ LDFLAGS=-g -fPIC
 all: libWrapCpp.so
 
 testLib: main.o TestRunner.o TestTimespan_us.o
-	g++ $(LDFLAGS) -o $@ $^ -lcppunit -L. -lWrapCpp 
+	g++ $(LDFLAGS) -o $@ $^ -lcppunit -L. -lWrapCpp -Wl,-rpath,.
 
-main.o: test/main.cpp
+main.o: test/main.cpp 
 	g++ $(CPPFLAGS) -o $@ -c $^
 
-test/main.cpp: TestRunner.o libWrapCpp.so
+test/main.cpp: Makefile TestRunner.o libWrapCpp.so
 
 TestRunner.o: test/TestRunner.cpp
 	g++ $(CPPFLAGS) -o $@ -c $^
