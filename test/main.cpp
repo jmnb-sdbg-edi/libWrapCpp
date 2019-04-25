@@ -1,23 +1,10 @@
-#include "Timespan_us.h"
-
-#include <iostream>
-
-void wait(const unsigned long repeats = 1000UL) {
-    double x(0);
-    for(unsigned long i = 1; i <= repeats; ++i)
-    for(unsigned long i = 1; i <= repeats; ++i)
-    for(unsigned long j = 1; j <= repeats; ++j)
-    x += i%j;
-}
-
-void testTimespan_us() {
-    Timespan_us ts;
-    wait();
-    std::clog << ts << " microseconds\n";
-}
+#include <cppunit/extensions/TestFactoryRegistry.h>
+#include <cppunit/ui/text/TestRunner.h>
 
 int main(int argc, char* argv[]) {
-    testTimespan_us();
-    return 0;
+	  CppUnit::TextUi::TestRunner runner;
+	  CppUnit::TestFactoryRegistry &registry = CppUnit::TestFactoryRegistry::getRegistry();
+	  runner.addTest( registry.makeTest() );
+	  bool wasSuccessful = runner.run( "", false );
+	  return !wasSuccessful;
 }
-

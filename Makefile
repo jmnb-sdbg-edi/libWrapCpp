@@ -3,13 +3,23 @@ LDFLAGS=-g -fPIC
 
 all: libWrapCpp.so
 
-testLib: main.o libWrapCpp.so
-	g++ $(LDFLAGS) $< -L. -lWrapCpp -o $@
+testLib: main.o TestRunner.o TestTimespan_us.o
+	g++ $(LDFLAGS) -o $@ $^ -lcppunit -L. -lWrapCpp 
 
 main.o: test/main.cpp
 	g++ $(CPPFLAGS) -o $@ -c $^
 
-test/main.cpp:
+test/main.cpp: TestRunner.o libWrapCpp.so
+
+TestRunner.o: test/TestRunner.cpp
+	g++ $(CPPFLAGS) -o $@ -c $^
+
+TestTimespan_us.o: test/TestTimespan_us.cpp
+	g++ $(CPPFLAGS) -o $@ -c $^
+
+test/TestRunner.cpp:
+
+test/TestTimespan_us.cpp: test/TestTimespan_us.h
 
 libWrapCpp.so: Call_proxy.o Wrap.o Callback.o Timespan_us.o
 	g++ $(LDFLAGS) -shared -o $@ $^
