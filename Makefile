@@ -6,7 +6,7 @@ all: libWrapCpp.so
 testLib: main.o TestRunner.o TestTimespan_us.o
 	g++ $(LDFLAGS) -o $@ $^ -lcppunit -L. -lWrapCpp -Wl,-rpath,.
 
-main.o: test/main.cpp 
+main.o: test/main.cpp
 	g++ $(CPPFLAGS) -o $@ -c $^
 
 test/main.cpp: Makefile TestRunner.o libWrapCpp.so
@@ -46,7 +46,7 @@ src/Timespan_us.cpp: include/Timespan_us.h
 
 include/Call_proxy.h: include/Pref.h include/Suf.h
 
-clean: 
+clean:
 	rm -rf *.o
 	rm -rf testLib
 
