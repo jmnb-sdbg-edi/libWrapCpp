@@ -5,6 +5,8 @@ all: libWrapCpp.so
 
 get-deps: libWrapCpp.so testLib
 
+test: testLib
+
 testLib: main.o TestRunner.o TestTimespan_us.o
 	g++ $(LDFLAGS) -o $@ $^ -lcppunit -L. -lWrapCpp -Wl,-rpath,.
 
