@@ -1,5 +1,5 @@
 # libWrapCpp
-<img src="https://travis-ci.org/jbatista/libWrapCpp.svg?branch=master"/>
+<img src="https://travis-ci.org/jmnb-sdbg-edi/libWrapCpp.svg?branch=master"/>
 
 C++ library based on Bjarne Stroustrup's call wrapper.
 See http://www.stroustrup.com/wrap_code.cpp
